@@ -1,0 +1,15 @@
+# libs/data-access/codegen.yml
+
+overwrite: true
+schema: "http://localhost:4000/"
+generates:
+  apps/public-web/src/generated/generated.tsx:
+    documents: "apps/public-web/src/**/*.graphql"
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withHooks: true
+      withComponent: false
+      withHOC: false
