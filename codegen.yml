@@ -1,7 +1,7 @@
 # libs/data-access/codegen.yml
 
 overwrite: true
-schema: "http://localhost:4000/"
+schema: "./schema.graphql"
 generates:
   apps/public-web/src/generated/generated.tsx:
     documents: "apps/public-web/src/**/*.graphql"

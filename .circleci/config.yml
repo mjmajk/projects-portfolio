@@ -25,6 +25,10 @@ jobs:
           name: Install Dependencies
           command: pnpm install
 
+      - run:
+          name: Generate graphql types
+          command: pnpm run generate-types
+
       - save_cache: # Cache pnpm dependencies
           paths:
             - ~/.pnpm-store
