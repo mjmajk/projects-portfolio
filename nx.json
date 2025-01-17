@@ -20,7 +20,6 @@
       "{workspaceRoot}/.circleci/config.yml"
     ]
   },
-  "nxCloudId": "6784d8cc7257206d3e3bf79d",
   "plugins": [
     {
       "plugin": "@nx/next/plugin",
