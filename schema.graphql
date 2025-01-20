@@ -1,6 +1,15 @@
 type Project {
+  id: Int!
+  name: String!
+  description: String!
+  image: Image!
+}
+
+type Image {
   id: Int
-  name: String
+  url: String
+  height: Int
+  width: Int
 }
 
 type Query {
@@ -8,5 +17,6 @@ type Query {
 }
 
 type Mutation {
-  seedProjects: [Project!]!
+  seedProjects: Boolean
+  deleteAll: Boolean
 }

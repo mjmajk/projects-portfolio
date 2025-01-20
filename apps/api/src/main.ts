@@ -1,6 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { PrismaClient } from '@prisma/client';
+import { Image, PrismaClient, Project } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
 
@@ -16,17 +16,50 @@ const resolvers = {
   Query: {
     // Example "read" query for all projects
     projects: async () => {
-      return prismaClient.project.findMany();
+      const projects = await prismaClient.project.findMany({
+        include: { image: true },
+      });
+
+      return projects;
     },
   },
   Mutation: {
-    // "Seed" mutation
+    deleteAll: async () => {
+      await prismaClient.project.deleteMany();
+      await prismaClient.image.deleteMany();
+      return true;
+    },
     seedProjects: async () => {
       // Example data you want to seed
-      const projectData = [
-        { name: 'Project Alpha' },
-        { name: 'Project Beta' },
-        { name: 'Project Gamma' },
+
+      const exampleImage: Image = {
+        id: 1,
+        url: 'https://example.com/image.jpg',
+        height: 100,
+        width: 100,
+      };
+
+      const image = await prismaClient.image.create({ data: exampleImage });
+
+      const projectData: Project[] = [
+        {
+          name: 'Project Alpha',
+          id: 1,
+          description: 'test',
+          imageId: image.id,
+        },
+        {
+          name: 'Project Beta',
+          id: 2,
+          description: 'test',
+          imageId: image.id,
+        },
+        {
+          name: 'Project Gamma',
+          id: 3,
+          description: 'test',
+          imageId: image.id,
+        },
       ];
 
       // In case you don’t want to create duplicates every time, you can either:
@@ -38,8 +71,7 @@ const resolvers = {
         skipDuplicates: true, // skip if a record with the same unique field already exists
       });
 
-      // Return the newly created (or existing) projects
-      return prismaClient.project.findMany();
+      return true;
     },
   },
 };
