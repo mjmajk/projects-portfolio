@@ -20,6 +20,11 @@ services:
       - postgres
     environment:
       DATABASE_URL: 'postgresql://postgres:postgres@postgres:5432/mydb'
+      # Optional: point your application to the volume path for uploads
+      IMAGES_UPLOAD_PATH: '/usr/src/app/uploads'
+    volumes:
+      # Mount the named volume into the container at /usr/src/app/uploads
+      - api_images:/usr/src/app/uploads
 
   postgres:
     image: postgres:latest
@@ -35,3 +40,4 @@ services:
 
 volumes:
   postgres_data:
+  api_images:
