@@ -6,10 +6,10 @@ type Project {
 }
 
 type Image {
-  id: Int
-  url: String
-  height: Int
-  width: Int
+  id: Int!
+  url: String!
+  height: Int!
+  width: Int!
 }
 
 type Query {

@@ -2,5 +2,12 @@ query Projects {
   projects {
     id
     name
+    description
+
+    image {
+      height
+      width
+      url
+    }
   }
 }

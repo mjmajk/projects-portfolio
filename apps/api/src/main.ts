@@ -1,8 +1,12 @@
+import express from 'express';
 import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
-import { Image, PrismaClient, Project } from '@prisma/client';
+import { expressMiddleware } from '@apollo/server/express4';
+import { createServer } from 'http';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 import fs from 'fs';
 import path from 'path';
+import { PrismaClient, Image, Project } from '@prisma/client';
 
 const prismaClient = new PrismaClient();
 
@@ -14,12 +18,10 @@ const typeDefs = fs.readFileSync(
 
 const resolvers = {
   Query: {
-    // Example "read" query for all projects
     projects: async () => {
       const projects = await prismaClient.project.findMany({
         include: { image: true },
       });
-
       return projects;
     },
   },
@@ -30,15 +32,12 @@ const resolvers = {
       return true;
     },
     seedProjects: async () => {
-      // Example data you want to seed
-
       const exampleImage: Image = {
         id: 1,
-        url: 'https://example.com/image.jpg',
-        height: 100,
-        width: 100,
+        url: 'http://localhost:4000/images/example-900-600.png',
+        height: 600,
+        width: 900,
       };
-
       const image = await prismaClient.image.create({ data: exampleImage });
 
       const projectData: Project[] = [
@@ -61,29 +60,54 @@ const resolvers = {
           imageId: image.id,
         },
       ];
-
-      // In case you don’t want to create duplicates every time, you can either:
-      // 1. Use createMany with `skipDuplicates: true`
-      // 2. Check if these projects exist first, etc.
-
       await prismaClient.project.createMany({
         data: projectData,
-        skipDuplicates: true, // skip if a record with the same unique field already exists
+        skipDuplicates: true,
       });
-
       return true;
     },
   },
 };
 
-// Create and start server
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
+async function startServer() {
+  // Create an Express app
+  const app = express();
 
-startStandaloneServer(server, {
-  listen: { port: 4000 },
-}).then(({ url }) => {
-  console.log(`🚀 Server ready at: ${url}`);
-});
+  // Serve static files from the "public" directory (create one if you haven't yet)
+  app.use(express.static('apps/api/public'));
+
+  // Create an instance of Apollo Server
+  const apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+  });
+
+  // Start the Apollo Server
+  await apolloServer.start();
+
+  // Attach the Apollo Server middleware to Express on the "/graphql" endpoint
+  app.use(
+    '/graphql',
+    cors<cors.CorsRequest>(),
+    bodyParser.json(),
+    expressMiddleware(apolloServer)
+  );
+
+  // allow cors
+  app.use(cors());
+
+  // Create and start the HTTP server
+  const httpServer = createServer(app);
+  const PORT = 4000;
+
+  httpServer.listen(PORT);
+}
+
+startServer()
+  .then((response) => {
+    console.log(response);
+    console.log('Server started successfully');
+  })
+  .catch((err) => {
+    console.error('Error starting the server:', err);
+  });
