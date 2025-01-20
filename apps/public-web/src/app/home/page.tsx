@@ -1,14 +1,14 @@
 'use client';
 
-import { useBooksQuery } from '../../generated/generated';
+import { useProjectsQuery } from '../../generated/generated';
 
 export default function Home() {
-  const { data } = useBooksQuery();
+  const { data } = useProjectsQuery();
 
   return (
     <div>
-      {data?.books?.map((book) => (
-        <div key={book?.author}>{book?.author}</div>
+      {data?.projects?.map((project) => (
+        <div key={project.id}>{project.name}</div>
       ))}
     </div>
   );

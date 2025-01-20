@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev:api": "npx nx run api:serve",
     "build": "npx nx run-many -t build",
     "build-web-image": "docker build . -t projects-portfolio-web -f ./apps/public-web/Dockerfile",
     "build-api-image": "docker build . -t projects-portfolio-api -f ./apps/api/Dockerfile",

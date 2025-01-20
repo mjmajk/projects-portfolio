@@ -4,7 +4,7 @@ type Project {
 }
 
 type Query {
-  projects: [Project]
+  projects: [Project!]!
 }
 
 type Mutation {
