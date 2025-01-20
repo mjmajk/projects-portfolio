@@ -1,7 +1,10 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { PrismaClient } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
+
+const prismaClient = new PrismaClient();
 
 // Read the schema from a .graphql file
 const typeDefs = fs.readFileSync(
@@ -9,22 +12,11 @@ const typeDefs = fs.readFileSync(
   'utf8'
 );
 
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-];
-
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
 const resolvers = {
   Query: {
-    books: () => books,
+    projects: prismaClient.project.findMany,
   },
 };
 
