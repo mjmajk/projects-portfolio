@@ -2,35 +2,28 @@ version: '3.8'
 
 services:
   nextjs-app:
-    build:
-      context: .
-      dockerfile: apps/public-web/Dockerfile
+    image: projects-portfolio-web
     container_name: nextjs-app
     ports:
       - '3000:3000'
     depends_on:
       - api
     environment:
-      # Point to the API via the internal hostname + port
       NEXT_PUBLIC_API_URL: 'http://localhost:4000'
 
   api:
-    build:
-      context: .
-      dockerfile: apps/api/Dockerfile
+    image: projects-portfolio-api
     container_name: api
     ports:
       - '4000:4000'
     depends_on:
       - postgres
     environment:
-      # Update credentials and database name to match your requirements
       DATABASE_URL: 'postgresql://postgres:postgres@postgres:5432/mydb'
 
   postgres:
     image: postgres:latest
     container_name: postgres
-    # Map port 5432 on your host to the container’s 5432 so you can connect from local dev
     ports:
       - '5432:5432'
     environment:

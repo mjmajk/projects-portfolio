@@ -1,0 +1,25 @@
+# Exclude node_modules and build artifacts
+
+node_modules
+build
+dist
+tmp
+.nx
+.vscode
+
+# Exclude Git files
+
+.git
+.gitignore
+
+# Exclude editor and system files
+
+_.swp
+_.log
+\*.bak
+.DS_Store
+
+# Exclude large dependencies or other files not needed for the image
+
+large-data-folder
+secret-config.json
