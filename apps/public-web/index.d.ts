@@ -4,3 +4,9 @@ declare module '*.svg' {
   export const ReactComponent: any;
   export default content;
 }
+
+declare module '*.gql' {
+  const content: any;
+  export const ReactComponent: any;
+  export default content;
+}

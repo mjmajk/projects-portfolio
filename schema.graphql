@@ -14,7 +14,7 @@ type Image {
 
 type Query {
   projects: [Project!]!
-  project(id: Int!): Project
+  project(id: Int!): Project!
 }
 
 type Mutation {

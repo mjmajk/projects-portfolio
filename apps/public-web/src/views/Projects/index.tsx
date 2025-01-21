@@ -1,30 +1,9 @@
 import Image from 'next/image';
-import { unstable_noStore as noStore } from 'next/cache';
 import Link from 'next/link';
+import { gqlOperations } from '../../gql-client';
 
-export default async function Home() {
-  noStore();
-  const { data } = await fetch('http://localhost:4000/graphql', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `
-        query Projects {
-          projects {
-            id
-            name
-            description
-
-            image {
-              height
-              width
-              url
-            }
-          }
-        }
-      `,
-    }),
-  }).then((res) => res.json());
+export const ProjectsView = async () => {
+  const { data } = await gqlOperations.Projects();
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -50,4 +29,4 @@ export default async function Home() {
       </div>
     </div>
   );
-}
+};

@@ -12,6 +12,12 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
+  experimental: {
+    staleTimes: {
+      dynamic: 60,
+      static: 60,
+    },
+  },
   images: {
     domains: ['localhost'],
   },
