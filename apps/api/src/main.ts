@@ -19,10 +19,22 @@ const typeDefs = fs.readFileSync(
 const resolvers = {
   Query: {
     projects: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const projects = await prismaClient.project.findMany({
         include: { image: true },
       });
       return projects;
+    },
+    project: async (_: any, { id }: { id: number }) => {
+      console.log('id', id);
+
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      const project = await prismaClient.project.findUnique({
+        where: { id },
+        include: { image: true },
+      });
+      return project;
     },
   },
   Mutation: {
@@ -30,6 +42,16 @@ const resolvers = {
       await prismaClient.project.deleteMany();
       await prismaClient.image.deleteMany();
       return true;
+    },
+    updateDescription: async (
+      _: any,
+      { id, description }: { id: number; description: string }
+    ) => {
+      const project = await prismaClient.project.update({
+        where: { id },
+        data: { description },
+      });
+      return project;
     },
     seedProjects: async () => {
       const exampleImage: Image = {

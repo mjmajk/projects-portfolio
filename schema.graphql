@@ -14,9 +14,11 @@ type Image {
 
 type Query {
   projects: [Project!]!
+  project(id: Int!): Project
 }
 
 type Mutation {
   seedProjects: Boolean
   deleteAll: Boolean
+  updateDescription(id: Int!, description: String!): Project
 }

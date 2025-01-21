@@ -15,6 +15,11 @@ const nextConfig = {
   images: {
     domains: ['localhost'],
   },
+  logging: {
+    fetches: {
+      fullUrl: true
+    }
+  }
 
 };
 
