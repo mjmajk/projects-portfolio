@@ -1,3 +1,4 @@
+import { gqlOperations } from '../gql-client';
 import { revalidatePath } from 'next/cache';
 
 export async function handleProjectUpdateOnServer(formData: FormData) {
@@ -15,21 +16,8 @@ export async function handleProjectUpdateOnServer(formData: FormData) {
     throw new Error('Project ID is required.');
   }
 
-  fetch('http://localhost:4000/graphql', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      query: `
-          mutation UpdateDescription($description: String!, $id: Int!) {
-            updateDescription(description: $description, id: $id) {
-                id
-                description
-            }
-          }
-        `,
-      variables: { description, id: projectId },
-    }),
-  });
+  await gqlOperations.UpdateDescription({ description, id: projectId });
 
-  revalidatePath(`/projects-server-component`);
+  revalidatePath(`/project-detail/${projectId}`);
+  revalidatePath(`/projects`);
 }

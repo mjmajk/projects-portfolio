@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import { handleProjectUpdateOnServer } from '../../actions/update-project-description';
 import { gqlOperations } from '../../gql-client';
-import Image from 'next/image';
 
 export const ProjectDetailView = async ({
   projectId,
