@@ -1,5 +1,6 @@
 import { Navbar } from '../components/Navbar';
 import './global.css';
+import { ToastContainer } from 'react-toastify';
 
 export const metadata = {
   title: 'Welcome to public-web',
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <ToastContainer />
         <Navbar />
         {children}
       </body>

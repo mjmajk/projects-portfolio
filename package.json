@@ -22,7 +22,9 @@
     "graphql-tag": "^2.12.6",
     "next": "15.2.0-canary.18",
     "react": "19.0.0",
-    "react-dom": "19.0.0"
+    "react-dom": "19.0.0",
+    "react-toastify": "^11.0.3",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@eslint/compat": "^1.1.1",

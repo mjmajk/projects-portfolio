@@ -1,15 +1,23 @@
+'use server';
+
 import { gqlOperations } from '../gql-client';
 import { revalidatePath } from 'next/cache';
 
-export async function handleProjectUpdateOnServer(formData: FormData) {
-  'use server';
+export type HandleProjectUpdateOnServerState = {
+  message: string;
+  type: 'error' | 'success';
+};
 
+export async function handleProjectUpdateOnServer(
+  prevState: HandleProjectUpdateOnServerState,
+  formData: FormData
+): Promise<HandleProjectUpdateOnServerState> {
   const description = formData.get('description') as string;
 
   const projectId = parseInt(formData.get('projectId') as string);
 
   if (!description) {
-    throw new Error('Description is required.');
+    return { message: 'Description is required', type: 'error' };
   }
 
   if (!projectId) {
@@ -20,4 +28,6 @@ export async function handleProjectUpdateOnServer(formData: FormData) {
 
   revalidatePath(`/project-detail/${projectId}`);
   revalidatePath(`/projects`);
+
+  return { message: 'Description updated', type: 'success' };
 }
