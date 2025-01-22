@@ -1,5 +1,3 @@
-'use cache';
-
 import { ProjectDetailView } from '../../../views/ProjectDetail/index';
 
 export default async function ProjectDetailPage(props: {

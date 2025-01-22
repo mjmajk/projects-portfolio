@@ -1,5 +1,3 @@
-'use cache';
-
 import { ProjectsView } from '../../views/Projects';
 
 export default async function ProjectsPage() {

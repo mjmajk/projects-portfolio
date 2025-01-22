@@ -13,7 +13,7 @@ const nextConfig = {
     svgr: false,
   },
   experimental: {
-    dynamicIO: true,
+    // dynamicIO: true,
     staleTimes: {
       dynamic: 60,
       static: 60,
