@@ -5,10 +5,12 @@ services:
     image: projects-portfolio-web
     container_name: nextjs-app
     ports:
-      - '3000:3000'
+      - '80:80'
     depends_on:
       - api
     environment:
+      HOSTNAME: 0.0.0.0
+      PORT: 80
       NEXT_PUBLIC_API_URL: 'http://api:4000/graphql' # <-- use "api" here
 
   api:
@@ -17,7 +19,7 @@ services:
     ports:
       - '4000:4000'
     depends_on:
-      - postgres
+      - db
     environment:
       DATABASE_URL: 'postgresql://postgres:postgres@postgres:5432/mydb'
       # Optional: point your application to the volume path for uploads
@@ -26,7 +28,7 @@ services:
       # Mount the named volume into the container at /usr/src/app/uploads
       - api_images:/usr/src/app/uploads
 
-  postgres:
+  db:
     image: postgres:latest
     container_name: postgres
     ports:

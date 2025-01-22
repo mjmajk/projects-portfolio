@@ -11,7 +11,7 @@ export const ProjectDetailView = async ({
   return (
     <div className="max-w-5xl mx-auto">
       <h1 className="text-[3rem] mb-4">{data.project.name}</h1>
-      <Image
+      <img
         style={{ width: '100%' }}
         width={data.project.image.width}
         height={data.project.image.height}

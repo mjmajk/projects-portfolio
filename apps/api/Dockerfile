@@ -34,8 +34,6 @@ WORKDIR /app
 
 RUN npx nx run api:build 
 
-RUN rm -rf ./node_modules
-
 CMD ["node", "./dist/apps/api/main.js"]
 
 

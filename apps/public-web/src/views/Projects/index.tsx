@@ -12,7 +12,7 @@ export const ProjectsView = async () => {
         {data?.projects?.map((project) => (
           <Link href={`/project-detail/${project.id}`} key={project.id}>
             <div className="border rounded-[0.5rem] overflow-hidden">
-              <Image
+              <img
                 style={{ width: '100%' }}
                 width={project.image.width}
                 height={project.image.width}

@@ -19,17 +19,12 @@ const typeDefs = fs.readFileSync(
 const resolvers = {
   Query: {
     projects: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       const projects = await prismaClient.project.findMany({
         include: { image: true },
       });
       return projects;
     },
     project: async (_: any, { id }: { id: number }) => {
-      console.log('id', id);
-
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
       const project = await prismaClient.project.findUnique({
         where: { id },
         include: { image: true },

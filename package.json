@@ -5,7 +5,7 @@
   "scripts": {
     "dev:api": "npx nx run api:serve",
     "build": "npx nx run-many -t build",
-    "build-web-image": "docker build . -t projects-portfolio-web -f ./apps/public-web/Dockerfile",
+    "build-web-image": "docker build . -t projects-portfolio-web -f ./apps/public-web/Dockerfile --network=host",
     "build-api-image": "docker build . -t projects-portfolio-api -f ./apps/api/Dockerfile",
     "generate-types": "graphql-codegen"
   },
