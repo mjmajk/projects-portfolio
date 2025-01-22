@@ -51,7 +51,7 @@ const resolvers = {
     seedProjects: async () => {
       const exampleImage: Image = {
         id: 1,
-        url: 'http://localhost:4000/images/example-900-600.png',
+        url: '/images/example-900-600.png',
         height: 600,
         width: 900,
       };

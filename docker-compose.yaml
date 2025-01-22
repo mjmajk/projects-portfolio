@@ -11,7 +11,7 @@ services:
     environment:
       HOSTNAME: 0.0.0.0
       PORT: 80
-      NEXT_PUBLIC_API_URL: 'http://api:4000/graphql' # <-- use "api" here
+      NEXT_PUBLIC_API_URL: 'http://api:4000' # <-- use "api" here
 
   api:
     image: projects-portfolio-api

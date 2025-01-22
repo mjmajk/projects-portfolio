@@ -12,11 +12,11 @@ export const ProjectsView = async () => {
         {data?.projects?.map((project) => (
           <Link href={`/project-detail/${project.id}`} key={project.id}>
             <div className="border rounded-[0.5rem] overflow-hidden">
-              <img
+              <Image
                 style={{ width: '100%' }}
                 width={project.image.width}
                 height={project.image.width}
-                src={project.image.url}
+                src={`${process.env.NEXT_PUBLIC_API_URL}${project.image.url}`}
                 alt="project image"
               />
               <div className="p-1">

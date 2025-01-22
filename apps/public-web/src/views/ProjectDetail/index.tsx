@@ -11,11 +11,11 @@ export const ProjectDetailView = async ({
   return (
     <div className="max-w-5xl mx-auto">
       <h1 className="text-[3rem] mb-4">{data.project.name}</h1>
-      <img
+      <Image
         style={{ width: '100%' }}
         width={data.project.image.width}
         height={data.project.image.height}
-        src={data.project.image.url}
+        src={`${process.env.NEXT_PUBLIC_API_URL}${data.project.image.url}`}
         alt="project image"
       />
       <UpdateDescriptionForm

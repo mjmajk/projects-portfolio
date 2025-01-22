@@ -21,7 +21,7 @@ const nextConfig = {
     },
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'api'],
   },
   logging: {
     fetches: {
