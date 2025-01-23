@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  nextjs-app:
+  web:
     image: projects-portfolio-web
     container_name: nextjs-app
     ports:

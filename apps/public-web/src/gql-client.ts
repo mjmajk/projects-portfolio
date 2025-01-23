@@ -8,8 +8,6 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL
 export const gqlOperations = getSdk(
   new GraphQLClient(apiUrl, {
     fetch: (input, init) => {
-      console.log(apiUrl);
-
       return fetch(input, init);
     },
   })

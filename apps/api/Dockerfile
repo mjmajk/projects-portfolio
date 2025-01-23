@@ -1,9 +1,7 @@
 # Use the official Node.js 18 LTS image as a base
-FROM node:20.15.1 AS setup
+FROM node:20-alpine AS build
 
-ENV NODE_ENV='development'
 ENV CI=true
-
 
 # Install pnpm and Nx CLI globally
 RUN npm install -g pnpm
@@ -24,16 +22,30 @@ RUN pwd
 
 # Build the application
 
-ENV NODE_ENV='production'
-
 WORKDIR /app/apps/api
 
 RUN npx prisma generate
 
 WORKDIR /app
 
+ENV NODE_ENV='development'
+
 RUN npx nx run api:build 
 
-CMD ["node", "./dist/apps/api/main.js"]
+FROM node:20-alpine AS app
+
+WORKDIR /app
+
+COPY --from=build /app/dist/apps/api  .
+COPY --from=build /app/apps/api/prisma ./prisma
+COPY --from=build /app/schema.graphql /app/schema.graphql
+
+RUN npm install -g pnpm
+
+RUN pnpm install 
+
+RUN npx prisma generate
+
+CMD ["node", "./main.js"]
 
 
