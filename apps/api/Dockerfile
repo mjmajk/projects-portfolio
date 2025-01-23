@@ -37,6 +37,8 @@ FROM node:20-alpine AS app
 WORKDIR /app
 
 COPY --from=build /app/dist/apps/api  .
+COPY --from=build /app/apps/api/public  /usr/src/app/uploads
+
 COPY --from=build /app/apps/api/prisma ./prisma
 COPY --from=build /app/schema.graphql /app/schema.graphql
 

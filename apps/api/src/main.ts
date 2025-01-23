@@ -103,8 +103,11 @@ async function startServer() {
   // Create an Express app
   const app = express();
 
+  if (!process.env.PUBLIC_FOLDER) {
+    throw new Error('PUBLIC_FOLDER environment variable is not set');
+  }
   // Serve static files from the "public" directory (create one if you haven't yet)
-  app.use(express.static('apps/api/public'));
+  app.use(express.static(process.env.PUBLIC_FOLDER));
 
   // Create an instance of Apollo Server
   const apolloServer = new ApolloServer({
