@@ -21,6 +21,7 @@
     "graphql-tag": "^2.12.6",
     "morgan": "^1.10.0",
     "next": "15.2.0-canary.18",
+    "next-auth": "^4.24.11",
     "prisma": "^6.2.1",
     "react": "19.0.0",
     "react-dom": "19.0.0",

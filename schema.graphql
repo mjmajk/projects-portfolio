@@ -1,24 +1,48 @@
+type User {
+  id: Int!
+  email: String!
+  name: String
+  projects: [Project!]!
+}
+
 type Project {
   id: Int!
   name: String!
-  description: String!
-  image: Image!
+  description: String
+  image: Image
+  user: User!
 }
 
 type Image {
   id: Int!
-  url: String!
-  height: Int!
-  width: Int!
+  url: String
+  height: Int
+  width: Int
 }
 
 type Query {
   projects: [Project!]!
-  project(id: Int!): Project!
+  project(id: Int!): Project
 }
 
 type Mutation {
-  seedProjects: Boolean
-  deleteAll: Boolean
-  updateDescription(id: Int!, description: String!): Project
+  # Sign up new user
+  signUp(email: String!, password: String!, name: String): AuthPayload!
+
+  # Sign in existing user -> returns a JWT
+  signIn(email: String!, password: String!): AuthPayload!
+
+  # Create a project (must be authenticated)
+  createProject(name: String!, description: String!, imageId: Int): Project!
+
+  # Update your own project
+  updateProject(id: Int!, name: String, description: String): Project!
+
+  # Delete your own project
+  deleteProject(id: Int!): Boolean!
+}
+
+type AuthPayload {
+  user: User!
+  token: String!
 }

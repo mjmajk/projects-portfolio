@@ -50,7 +50,7 @@
           "buildTarget": "api:build:development"
         },
         "production": {
-          "buildTarget": "api:build:production"
+          "buildTarget": "api:build:development"
         }
       }
     },
