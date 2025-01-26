@@ -2,25 +2,27 @@ version: '3.8'
 
 services:
   web:
-    image: projects-portfolio-web
+    image: mjmajk/project-portfolio-web:latest
     container_name: nextjs-app
     ports:
       - '80:80'
     depends_on:
       - api
     environment:
+      NEXTAUTH_SECRET: say_lalisa_love_me_lalisa_love_me_hey
       HOSTNAME: 0.0.0.0
       PORT: 80
       NEXT_PUBLIC_API_URL: 'http://api:4000' # <-- use "api" here
 
   api:
-    image: projects-portfolio-api
+    image: mjmajk/projects-portfolio-api:latest
     container_name: api
     ports:
       - '4000:4000'
     depends_on:
       - db
     environment:
+      JWT_SECRET: '8ANGXUzg33wdBeFwV1wA0LvaJS5Ojj9I6FCbvfC2qmGiu'
       DATABASE_URL: 'postgresql://postgres:postgres@postgres:5432/mydb'
       PUBLIC_FOLDER: '/usr/src/app/uploads'
     volumes:

@@ -16,7 +16,7 @@ COPY . .
 
 ENV NODE_ENV='production'
 
-RUN pnpm run generate-types
+RUN pnpm run gen
 
 RUN npx nx run public-web:build
 

@@ -20,7 +20,7 @@ const customProvider = CredentialsProvider({
       throw new Error('Invalid credentials');
     }
 
-    const { data, errors } = await gqlOperations.SignIn({
+    const { data, errors } = await gqlOperations().SignIn({
       email: credentials.email,
       password: credentials.password,
     });
