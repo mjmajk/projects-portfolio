@@ -1,3 +1,5 @@
-export default function Index() {
-  return <div>Home</div>;
+import { ProjectsView } from '../views/Projects/index';
+
+export default async function ProjectsPage() {
+  return <ProjectsView />;
 }

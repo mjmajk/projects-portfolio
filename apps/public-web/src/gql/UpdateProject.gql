@@ -1,6 +1,0 @@
-mutation UpdateDescription($description: String!, $id: Int!) {
-  updateDescription(description: $description, id: $id) {
-    id
-    description
-  }
-}

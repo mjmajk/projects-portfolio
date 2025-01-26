@@ -1,9 +1,9 @@
-export default function SignInPage() {
-  return (
-    <form>
-      <input type="text" placeholder="Email" />
-      <input type="password" placeholder="Password" />
-      <button type="submit">Sign In</button>
-    </form>
-  );
-}
+'use client';
+
+import { SignInView } from '../../views/SignIn/index';
+
+const SignInPage = () => {
+  return <SignInView />;
+};
+
+export default SignInPage;

@@ -3,12 +3,30 @@ import { getUserIdFromRequest } from '../../middleware/auth';
 
 export const projectResolvers = {
   Query: {
-    async projects(_: any, __: any) {
-      return prisma.project.findMany({ include: { user: true, image: true } });
+    async projects(_: any, __: any, ctx) {
+      const { req } = ctx;
+
+      const userId = getUserIdFromRequest(req);
+      if (!userId) {
+        throw new Error('Not authenticated.');
+      }
+
+      return prisma.project.findMany({
+        where: { userId },
+        include: { user: true, image: true },
+      });
     },
-    async project(_: any, { id }: { id: number }) {
+    async project(_: any, { id }: { id: number }, ctx) {
+      const { req } = ctx;
+
+      const userId = getUserIdFromRequest(req);
+
+      if (!userId) {
+        throw new Error('Not authenticated.');
+      }
+
       return prisma.project.findUnique({
-        where: { id },
+        where: { id, userId },
         include: { user: true, image: true },
       });
     },
